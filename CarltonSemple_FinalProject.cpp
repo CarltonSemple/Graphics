@@ -1,3 +1,10 @@
+/*///////////////////////////////////////////////////////////////////////////////////////
+Carlton Semple
+Final Project
+Visual Studio 2013
+December 4, 2014
+
+///////////////////////////////////////////////////////////////////////////////////////*/
 #include <iostream>
 #include <ctime>
 #include <deque>
@@ -119,10 +126,14 @@ void resize2(int w, int h);
 // *																			 *
 
 // Routine to draw a bitmap character string.
-void writeBitmapString(void *font, char *string)
+void writeBitmapString(void *font, char *string, int length)
 {
-	char *c;
-	for (c = string; *c != '\0'; c++) glutBitmapCharacter(font, *c);
+	char *c = string;
+	for (int i = 0; i < length; i++){	// Use length as a limit rather than '\0' to avoid garbage
+		glutBitmapCharacter(font, *c);
+		c++;
+	}
+	
 }
 
 // ******************************** Camera Tricks ********************************
@@ -688,11 +699,11 @@ void drawScene(void)
 		glPushMatrix();
 		glRasterPos3f(-35.0, 49.0, -30);
 		string s = "Score: " + std::to_string(score);
-		char *cstr = new char[s.length() + 1];	// http://stackoverflow.com/questions/7352099/stdstring-to-char
+		char *cstr = new char[s.length()];	// http://stackoverflow.com/questions/7352099/stdstring-to-char
 		for (int i = 0; i < s.length(); i++)
 			cstr[i] = s[i];
 		glColor3f(1.0, 0.0, 1.0);
-		writeBitmapString(GLUT_BITMAP_HELVETICA_18, cstr);
+		writeBitmapString(GLUT_BITMAP_HELVETICA_18, cstr, s.length());
 		glPopMatrix();
 		
 		// Create and maintain waves
@@ -1020,6 +1031,9 @@ void mouseControl(int button, int state, int x, int y)
 				// Progress to the Next Menu
 				gliderMenu = false;
 				characterMenu = true;
+
+				cout << "Are you ready to begin? Click on the moving prism" << endl;
+
 				// Change the window settings
 				resize1(mainWidth, mainHeight);
 			}
@@ -1065,13 +1079,14 @@ void findClosestHit(int hits, unsigned int buffer[])
 	if (closestName != 0)
 	{
 		highlightFrames = 10;
-		//cout << "clicked something" << endl;
+		cout << "Use the arrow keys for movement.  Click anywhere to shoot the clouds & increase your score!" << endl;
+		cout << "Careful. You have a limited arsenal of water droplets" << endl;
 	}
 }
 
 void printInteraction(void)
 {
-	
+	cout << "Choose a texture for the glider. Click continue when finished" << endl;
 }
 
 /*************** Movement Functions ****************/
