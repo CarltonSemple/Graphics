@@ -865,49 +865,13 @@ void keyInput(unsigned char key, int x, int y)
 	case 27:
 		exit(0);
 		break;
-	case 'x':
-		Xangle += 5.0;
-		if (Xangle > 360.0) Xangle -= 360.0;
-		glutPostRedisplay();
-		break;
-	case 'X':
-		Xangle -= 5.0;
-		if (Xangle < 0.0) Xangle += 360.0;
-		glutPostRedisplay();
-		break;
-	case 'y':
-		Yangle += 5.0;
-		if (Yangle > 360.0) Yangle -= 360.0;
-		glutPostRedisplay();
-		break;
-	case 'Y':
-		Yangle -= 5.0;
-		if (Yangle < 0.0) Yangle += 360.0;
-		glutPostRedisplay();
-		break;
-	case 'z':
-		Zangle += 5.0;
-		if (Zangle > 360.0) Zangle -= 360.0;
-		glutPostRedisplay();
-		break;
-	case 'Z':
-		Zangle -= 5.0;
-		if (Zangle < 0.0) Zangle += 360.0;
-		glutPostRedisplay();
-		break;
-	case 9:
-	{
-		if (rowCount < 5) rowCount++;
-		else rowCount = 0;
-	}
-		glutPostRedisplay();
-		break;
 	case ' ':
-	{
-		if (columnCount < 3) columnCount++;
-		else columnCount = 0;
-	}
-		glutPostRedisplay();
+		if (gliderMenu == false && characterMenu == false)
+		{
+			character->spewWater();	// release a water droplet
+
+			glutPostRedisplay();
+		}
 		break;
 	default:
 		break;
@@ -1079,7 +1043,7 @@ void findClosestHit(int hits, unsigned int buffer[])
 	if (closestName != 0)
 	{
 		highlightFrames = 10;
-		cout << "Use the arrow keys for movement.  Click anywhere to shoot the clouds & increase your score!" << endl;
+		cout << "Use the arrow keys for movement.  Click anywhere or press the space bar to shoot the clouds & increase your score!" << endl;
 		cout << "Careful. You have a limited arsenal of water droplets" << endl;
 	}
 }
